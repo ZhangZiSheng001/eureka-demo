@@ -3,16 +3,21 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.zzs.eureka</groupId>
-	<artifactId>15-eureka-client</artifactId>
+	<artifactId>15-eureka-service</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.0</version>
-	<name>15-eureka-client</name>
+	<name>15-eureka-service</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
         <dependency>
             <groupId>com.netflix.eureka</groupId>
-            <artifactId>eureka-core</artifactId>
+            <artifactId>eureka-client</artifactId>
             <version>1.10.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.30</version>
         </dependency>
 	</dependencies>
 </project>

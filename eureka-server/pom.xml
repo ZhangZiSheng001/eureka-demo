@@ -4,17 +4,47 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.zzs.eureka</groupId>
 	<artifactId>15-eureka-server</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>1.0.0</version>
 	<name>15-eureka-server</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
-		<!-- junit -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>com.netflix.eureka</groupId>
+            <artifactId>eureka-core</artifactId>
+            <version>1.10.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-servlet</artifactId>
+            <version>1.19.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.12.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- log -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.30</version>
+        </dependency>
 	</dependencies>
+    
+    <build>
+        <finalName>eureka</finalName>
+    </build>
 </project>
