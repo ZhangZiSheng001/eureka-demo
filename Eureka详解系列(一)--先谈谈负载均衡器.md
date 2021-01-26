@@ -69,8 +69,8 @@ SLB 配置上要比传统的 nginx 简单很多，只要配置好监听就行。
 后来，我发现了一个更好的方案，那就是 Eureka。和 SLB 不同，**Eureka 是专门针对 mid-tier services 的负载均衡器**。它主要包含三个部分：
 
 1. Eureka Server：存放服务名和服务对应地址的映射表，这就是我们常说的服务注册中心。开篇的时候我说过，“Eureka 是一个服务注册中心”这种说法是片面的，这里就能知道原因了吧。
-2. Eureka Service：服务提供方，向 Eureka Server 注册自己的地址。例如，mid-tier services 所在应用就属于这一类。
-3. Eureka Client：服务消费方，从 Eureka Server 获取 Eureka Service 的地址，并消费对应的服务，它包含内置的负载均衡器。例如，订单服务调用客户服务的 mid-tier services，那么订单服务就是一个 Eureka Client。
+2. Eureka Client for application service：服务提供方，向 Eureka Server 注册自己的地址。例如，mid-tier services 所在应用就属于这一类。
+3. Eureka Client for application client：服务消费方，从 Eureka Server 获取 application service 的地址，并消费对应的服务，它包含内置的负载均衡器。例如，订单服务调用客户服务的 mid-tier services，那么订单服务就是一个 application client。
 
 当然，这三个部分都可以进行横向的扩展。
 
@@ -84,7 +84,7 @@ SLB 配置上要比传统的 nginx 简单很多，只要配置好监听就行。
 
 Eureka 作为一个专门针对 mid-tier services 的负载均衡器，相比 SLB 等，还是存在很多优点。
 
-<img src="https://img2020.cnblogs.com/blog/1731892/202101/1731892-20210122141633825-1237535762.png" style="zoom:67%;" />
+<img src="https://img2020.cnblogs.com/blog/1731892/202101/1731892-20210126102216106-1435991969.png" alt="zzs_eureka_08" style="zoom:67%;" />
 
 1. **Eureka 的服务注册是无状态**。如果我新增了一百个新的服务，SLB 需要配置一百个对应的监听，而 Eureka Server 什么都不需要做，你只要注册上来就行，扩展起来非常方便。说的直白一点，SLB 知道自己将处理哪些服务，而 Eureka Server 不会事先知道。
 2. **Eureka Server 挂了，Eureka Client 还可以正常消费服务**。Eureka Client 本地会缓存服务地址，即使 Eureka Server 挂了，它还是能够正常消费服务。
@@ -95,7 +95,7 @@ Eureka 作为一个专门针对 mid-tier services 的负载均衡器，相比 SL
 
 # 参考资料
 
-https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance
+[Eureka github文档](https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance)
 
 > 相关源码请移步：[https://github.com/ZhangZiSheng001/eureka-demo](https://github.com/ZhangZiSheng001/eureka-demo)
 
