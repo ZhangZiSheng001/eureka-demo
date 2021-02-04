@@ -62,7 +62,7 @@ ApplicationInfoManager applicationInfoManager = new ApplicationInfoManager(
 EurekaClient eurekaClient = new DiscoveryClient(applicationInfoManager, new DefaultEurekaClientConfig());
 // 设置当前实例状态为STARTING
 applicationInfoManager.setInstanceStatus(InstanceInfo.InstanceStatus.STARTING);
-// 设置当前实例状态为UP----》这个时候会向Eureka Server注册自己
+// 设置当前实例状态为UP
 applicationInfoManager.setInstanceStatus(InstanceInfo.InstanceStatus.UP);
 // 和application client交互
 // ······

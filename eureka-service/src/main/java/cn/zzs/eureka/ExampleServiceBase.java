@@ -80,6 +80,7 @@ public class ExampleServiceBase {
     public void stop() {
         if (eurekaClient != null) {
             System.out.println("Shutting down server. Demo over.");
+            applicationInfoManager.setInstanceStatus(InstanceInfo.InstanceStatus.DOWN);
             eurekaClient.shutdown();
         }
     }

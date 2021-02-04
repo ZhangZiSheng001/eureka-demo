@@ -1,0 +1,42 @@
+@startuml
+scale 1.2
+
+abstract class AbstractConfiguration
+
+class DynamicPropertyFactory
+note top of DynamicPropertyFactory
+通过它，
+<b><color:red>获取支持动态配置的property对象,</color></b>
+例如，DynamicStringProperty对象
+end note
+together {
+interface DynamicPropertySupport
+class ConfigurationBackedDynamicPropertySupportImpl
+}
+ConfigurationBackedDynamicPropertySupportImpl .up.|> DynamicPropertySupport
+AbstractConfiguration -right-o ConfigurationBackedDynamicPropertySupportImpl
+DynamicPropertySupport -down-o DynamicPropertyFactory
+
+class DynamicProperty {
+    - {static}ConcurrentHashMap<String, DynamicProperty> ALL_PROPS
+}
+note left of DynamicProperty
+ALL_PROPS为静态成员属性
+<b><color:red>缓存了部分property的DynamicProperty对象</color></b>
+<b><color:red>当配置更改，ALL_PROPS里的缓存也会变更</color></b>
+end note
+DynamicPropertySupport -down-o DynamicProperty
+DynamicPropertyFactory -left- DynamicProperty
+
+
+class DynamicStringProperty
+class DynamicIntProperty
+class DynamicLongProperty
+class DynamicBooleanProperty
+DynamicProperty -down-o DynamicStringProperty
+DynamicProperty -down-o DynamicIntProperty
+DynamicProperty -down-o DynamicLongProperty
+DynamicProperty -down-o DynamicBooleanProperty
+
+right footer <font size="18" color="red">ZhangZiSheng001</font>
+@enduml

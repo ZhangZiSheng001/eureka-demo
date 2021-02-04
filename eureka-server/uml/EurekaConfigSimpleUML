@@ -1,0 +1,54 @@
+@startuml
+scale 1.2
+
+
+
+class DynamicPropertyFactory
+note left of DynamicPropertyFactory
+通过它，
+<b><color:red>获取支持动态配置的property对象</color></b>
+end note
+
+class ConfigurationManager
+note top of ConfigurationManager
+通过它，
+<b><color:red>初始化配置对象，</color></b>
+<b><color:red>提供加载配置文件(本地、远程)的方法</color></b>
+end note
+
+interface EurekaInstanceConfig
+note top of EurekaInstanceConfig 
+   当前实例身份的配置信息,
+    即<b><color:red>我是谁？</color></b>
+end note
+abstract class AbstractInstanceConfig
+abstract class PropertiesInstanceConfig
+AbstractInstanceConfig .up.|> EurekaInstanceConfig
+PropertiesInstanceConfig -up-|> AbstractInstanceConfig
+DynamicPropertyFactory -down-o PropertiesInstanceConfig
+ConfigurationManager -up- PropertiesInstanceConfig
+
+interface EurekaClientConfig
+note top of EurekaClientConfig
+    一些影响当前实例和Eureka Server 
+    交互行为的配置信息，
+    即<b><color:red>和谁交互？怎么交互？</color></b>
+end note
+class DefaultEurekaClientConfig
+DefaultEurekaClientConfig .up.|> EurekaClientConfig
+DynamicPropertyFactory -down-o DefaultEurekaClientConfig
+ConfigurationManager -up- DefaultEurekaClientConfig
+
+interface EurekaServerConfig
+note top of EurekaServerConfig
+    一些影响当前Eureka Server和客户端
+    或对等节点交互行为的配置信息，
+    即<b><color:red>怎么交互？</color></b>
+end note
+class DefaultEurekaServerConfig
+DefaultEurekaServerConfig .up.|> EurekaServerConfig
+DynamicPropertyFactory -down-o DefaultEurekaServerConfig
+ConfigurationManager -up- DefaultEurekaServerConfig
+
+right footer <font size="18" color="red">ZhangZiSheng001</font>
+@enduml

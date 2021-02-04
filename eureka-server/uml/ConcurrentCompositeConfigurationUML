@@ -1,0 +1,30 @@
+@startuml
+scale 1.2
+
+together {
+    class EventSource
+    note top of EventSource
+    用来支持以下功能：
+    <b><color:red>当property变更时生成事件，</color></b>
+    <b><color:red>并触发你注册的监听器</color></b>
+    end note
+    interface Configuration
+    note top of Configuration
+     用来支持以下功能：
+    <b><color:red>对property进行增删改查</color></b>
+    end note
+    abstract class AbstractConfiguration
+    class ConcurrentMapConfiguration 
+    class ConcurrentCompositeConfiguration {
+        - List<AbstractConfiguration> configList
+        - AbstractConfiguration overrideProperties;
+        - AbstractConfiguration containerConfiguration;
+    }
+}
+AbstractConfiguration .up.|> Configuration
+AbstractConfiguration -up-|> EventSource
+ConcurrentMapConfiguration -up-|> AbstractConfiguration
+ConcurrentCompositeConfiguration -up-|> ConcurrentMapConfiguration
+
+right footer <font size="18" color="red">ZhangZiSheng001</font>
+@enduml
