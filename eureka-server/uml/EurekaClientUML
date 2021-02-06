@@ -4,11 +4,12 @@ together {
     interface EurekaInstanceConfig
     note top of EurekaInstanceConfig 
                当前实例身份的配置信息,
-                即告诉 Eureka Server <b><color:red>我是谁？</color></b>
+                即告诉Eureka Server我是谁？
     end note
     class ApplicationInfoManager
     note bottom of ApplicationInfoManager
-   <b><color:red>用户注册、注销实例的入口</color></b>
+   <b><color:red>用户入口</color></b>，用来
+   <b><color:red>更改当前实例的状态</color></b>
     end note
     class InstanceInfo
     note top: 当前实例对象
@@ -20,22 +21,37 @@ interface EurekaClientConfig
 note top of EurekaClientConfig
     一些影响当前实例和Eureka Server 
     交互行为的配置信息，
-    即<b><color:red>和谁交互？怎么交互？</color></b>
+    即和谁交互？怎么交互？
 end note
 
-together {
-    interface EurekaClient
-    class DiscoveryClient
-    note bottom of DiscoveryClient
-        用来<b><color:red>获取其他服务</color></b>，
-        以及提供内部入口用来
-        <b><color:red>注册、续约、和注销当前实例</color></b>
-    end note
-}
+interface EurekaClient
+class DiscoveryClient
+note right of DiscoveryClient
+<b><color:red>用户入口</color></b>，用来
+    1.<b><color:red>注册、注销当前实例</color></b>；
+    2.<b><color:red>获取其他服务的信息</color></b>；
+    3.<b><color:red>管理同步本地注册表缓存的任务</color></b>
+    4.<b><color:red>管理心跳、同步实例信息等任务</color></b>
+    5.<b><color:red>注册监听器来监听实例状态的改变</color></b>
+end note
+EurekaClientConfig -up-o DiscoveryClient
 DiscoveryClient -up-|> EurekaClient
 ApplicationInfoManager -left-o DiscoveryClient
-EurekaClientConfig -right-o  DiscoveryClient
 
+class HeartbeatThread
+note bottom:定期向Eureka Server发送心跳
+class CacheRefreshThread
+note bottom:定时刷新本地注册表
+class InstanceInfoReplicator
+note bottom:定期向Eureka Server同步当前实例信息
+class StatusChangeListener
+note bottom:监听当前实例信息状态的变化
+
+HeartbeatThread -down-o DiscoveryClient
+CacheRefreshThread -down-o DiscoveryClient
+InstanceInfoReplicator -down-o DiscoveryClient
+StatusChangeListener -down-o DiscoveryClient
+StatusChangeListener --o ApplicationInfoManager
 
 right footer <font size="18" color="red">ZhangZiSheng001</font>
 @enduml

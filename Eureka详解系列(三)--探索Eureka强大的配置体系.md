@@ -1,6 +1,6 @@
 # 简介
 
-通过前面的两篇[博客](https://www.cnblogs.com/ZhangZiSheng001/category/1920698.html)，我们知道了：什么是 Eureka？为什么使用 Eureka？如何适用 Eureka？今天，我们开始来研究 Eureka 的源码，先从配置部分的源码开始看，其他部分后面再补充。
+通过前面的两篇[博客](https://www.cnblogs.com/ZhangZiSheng001/category/1920698.html)，我们知道了：什么是 Eureka？为什么使用 Eureka？如何使用 Eureka？今天，我们开始来研究 Eureka 的源码，先从配置部分的源码开始看，其他部分后面再补充。
 
 补充一点，我更多地会从设计层面分析源码，而不会顺序地剖析每个过程的代码。一方面是因为篇幅有限，另一方面是因为我认为这样做更有意义一些。
 
