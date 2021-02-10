@@ -70,7 +70,7 @@ applicationInfoManager.setInstanceStatus(InstanceInfo.InstanceStatus.UP);
 eurekaClient.shutdown();
 ```
 
-操作方法很简单，只要运行`ExampleEurekaService.main`方法就行。当控制台出现"_Service started and ready to process requests.._"时，说明当前实例已经注册到 Eureka Server，并且准备被消费。
+操作方法很简单，只要运行`ExampleEurekaService.main`方法就行（加上启动参数：`-Deureka.client.props=sample-eureka-service`）。当控制台出现"_Service started and ready to process requests.._"时，说明当前实例已经注册到 Eureka Server，并且准备被消费。
 
 <img src="https://img2020.cnblogs.com/blog/1731892/202101/1731892-20210128090432088-306251751.png" alt="zzs_eureka_12" style="zoom:67%;" />
 
@@ -92,7 +92,7 @@ InstanceInfo nextServerInfo = eurekaClient.getNextServerFromEureka(vipAddress, f
 eurekaClient.shutdown();
 ```
 
-直接运行`ExampleEurekaClient.main`就行。我们可以从控制台看到整个过程。
+直接运行`ExampleEurekaClient.main`就行（加上启动参数`-Deureka.client.props=sample-eureka-client`）。我们可以从控制台看到整个过程。
 
 <img src="https://img2020.cnblogs.com/blog/1731892/202101/1731892-20210128090450915-700687721.png" alt="zzs_eureka_14" style="zoom:67%;" />
 
